@@ -35,7 +35,7 @@ class MainActivity extends FlutterFragmentActivity {
 }
 ```
 
-If you got issue in android 8 change in res/values.xml to be like this
+If you got issue in android 8 change in res/values/styles.xml to be like this
 
 ```xml
 
