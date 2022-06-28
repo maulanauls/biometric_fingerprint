@@ -5,6 +5,16 @@ BIOMETRIC FINGERPRINT
 The easy way to use biometric authentication in your Flutter app.
 Supports Fingerprint, FaceID and Iris.
 
+
+## Demo example
+
+<table>
+  <tr>
+    <td><img src="https://github.com/maulanauls/biometric_fingerprint/raw/main/photo1656397022.jpeg" alt="example demo" width="200"></td>
+    <td><img src="https://github.com/maulanauls/biometric_fingerprint/raw/main/photo1656397025.jpeg" alt="how example case" width="200"></td>
+  </tr>
+</table>
+
 ## Getting Started
 
 ```
