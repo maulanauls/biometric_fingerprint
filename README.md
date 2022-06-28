@@ -77,6 +77,7 @@ BiometricResult result = await BiometricFingerprint.initAuthentication({
 });
 ```
 
+```dart
 if (result.isSuccess && result.hasData) {
   // result success example
   String messageKey = result.data!;
