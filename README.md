@@ -35,6 +35,19 @@ class MainActivity extends FlutterFragmentActivity {
 }
 ```
 
+If you got issue in android 8 change in res/values.xml to be like this
+
+```xml
+
+<style name="LaunchTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--    <style name="LaunchTheme" parent="@style/Theme.AppCompat.Light">--> // comment this case
+    <!-- Show a splash screen on the activity. Automatically removed when
+         the Flutter engine draws its first frame -->
+    <item name="android:windowBackground">@drawable/launch_background</item>
+</style>
+
+```
+
 ## Usage
 
 To check biometric type of your device.
