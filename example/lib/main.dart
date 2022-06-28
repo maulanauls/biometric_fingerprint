@@ -59,8 +59,8 @@ class _MyAppState extends State<MyApp> {
         await _biometricFingerprintPlugin.initAuthentication(
       biometricKey: 'example',
       message: 'This is a very secret message',
-      title: 'Biometric Encryption',
-      subtitle: 'Enter biometric credentials to encrypt your message',
+      title: 'Biometric',
+      subtitle: 'Enter biometric credentials example',
       description: 'Scan fingerprint.',
       negativeButtonText: 'CANCEL',
       confirmationRequired: true,
