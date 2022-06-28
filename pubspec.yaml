@@ -1,7 +1,8 @@
 name: biometric_fingerprint
 description: A plugin for fingerprint dialog
-version: 0.0.2
-homepage:
+version: 0.0.3
+homepage: http://lapakprogrammer.com/flutter/plugin/biometric-fingerprint
+repository: https://github.com/maulanauls/biometric_fingerprint.git
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
