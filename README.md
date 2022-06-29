@@ -86,28 +86,44 @@ bool isBiometricEnabled = await BiometricFingerprint.isEnabled;
 ```
 
 To using biometric authentication.
-
+To show custom message in your biometric prompt, method encrypt and decrypt have parameters you can use to change the biometric prompt dialog.
 
 ```dart
 BiometricResult result = await BiometricFingerprint.initAuthentication({
-  biometricKey: 'example_key',
-  message: 'This is a very secret message',
-  title: 'Biometric Encryption',
-  subtitle: 'Enter biometric credentials to encrypt your message',
-  description: 'Scan fingerprint or face.',
-  negativeButtonText: 'USE PASSWORD',
-  confirmationRequired: true,
+  biometricKey: 'example_key', // example paramter encrypt key
+  message: 'This is a very secret message', // whatever you want description in dialog
+  title: 'Biometric Encryption', // whatever you want to write the title
+  subtitle: 'Enter biometric credentials to encrypt your message', // whatever you want to subtitle 
+  description: 'Scan fingerprint or face.', // whatever you want description in dialog
+  negativeButtonText: 'USE PASSWORD', // whatever you want make cancel can also "CANCEL"
+  confirmationRequired: true, // confirmation 
 });
 ```
 
 ```dart
 if (result.isSuccess && result.hasData) {
   // result success example
-  String messageKey = result.data!;
+  String messageKey = result.data!; // up to you make function to do login go head
+  
 } else {
-  showToast(result.errorMsg, context: context);
+  print(result.errorMsg);// showing error 
 }
 ```
 
+
+```dart
+if (result.isFailed) {
+ //failed case
+}
+```
+
+```dart
+if (result.isCanceled) {
+ //if user cancel / close the dialog biometric or API has been closed
+}
+```
+
+* Case use this plugin for
+use case it will be up to you for using on it for login authentication for encrypt or decrypt data with biometric API.
 
 

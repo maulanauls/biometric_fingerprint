@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:biometric_fingerprint/biometric_fingerprint.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -20,6 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   bool _isAuthenticating = false;
+  String _key = "";
   final _biometricFingerprintPlugin = BiometricFingerprint();
 
   @override
@@ -51,6 +52,96 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  _success() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Yey, success to authenticate data key: ${_key}', style: const TextStyle(
+                fontFamily: 'poppins',
+                color: Colors.black,
+                letterSpacing: 1,
+                fontWeight: FontWeight.w700,
+                fontSize: 13)),
+            content: Text('is authentication: ${_isAuthenticating}',style: const TextStyle(
+                fontFamily: 'poppins',
+                color: Colors.black,
+                letterSpacing: 1,
+                fontWeight: FontWeight.w700,
+                fontSize: 13)),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Close',style: const TextStyle(
+                      fontFamily: 'poppins',
+                      color: Colors.black,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13))),
+              TextButton(
+                onPressed: () {
+                  print(_isAuthenticating);
+                  Navigator.pop(context);
+                },
+                child: Text('OK',style: const TextStyle(
+                    fontFamily: 'poppins',
+                    color: Colors.black,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13)),
+              )
+            ],
+          );
+        });
+  }
+
+  _error() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('OOps, error to authenticate data key: ${_key}', style: const TextStyle(
+                fontFamily: 'poppins',
+                color: Colors.black,
+                letterSpacing: 1,
+                fontWeight: FontWeight.w700,
+                fontSize: 13)),
+            content: Text('is authentication: ${_isAuthenticating}',style: const TextStyle(
+                fontFamily: 'poppins',
+                color: Colors.black,
+                letterSpacing: 1,
+                fontWeight: FontWeight.w700,
+                fontSize: 13)),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Close',style: const TextStyle(
+                      fontFamily: 'poppins',
+                      color: Colors.black,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13))),
+              TextButton(
+                onPressed: () {
+                  print(_isAuthenticating);
+                  Navigator.pop(context);
+                },
+                child: Text('OK',style: const TextStyle(
+                    fontFamily: 'poppins',
+                    color: Colors.black,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13)),
+              )
+            ],
+          );
+        });
+  }
+
   Future<void> _CallFingerPrint() async {
     setState(() {
       _isAuthenticating = false;
@@ -80,12 +171,16 @@ class _MyAppState extends State<MyApp> {
       final key = result.data!;
       setState(() {
         _isAuthenticating = true;
+        _key = key;
       });
+      _success();
       return;
     }
 
     if (result.isFailed) {
+      _error();
       setState(() {
+        _key = result.errorMsg;
         _isAuthenticating = false;
       });
     }
@@ -93,65 +188,62 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'BIOMETRIC EXAMPLE',
-            style: const TextStyle(
-                color: Colors.white,
-                fontFamily: 'poppins',
-                letterSpacing: 1,
-                fontWeight: FontWeight.w700,
-                fontSize: 13),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'BIOMETRIC EXAMPLE',
+          style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'poppins',
+              letterSpacing: 1,
+              fontWeight: FontWeight.w700,
+              fontSize: 13),
         ),
-        body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 180,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 180,
+            ),
+            Center(
+              child: IconButton(
+                iconSize: 80,
+                color: Colors.blue,
+                icon: const Icon(Icons.fingerprint),
+                tooltip: _isAuthenticating
+                    ? 'Login with fingerprint'
+                    : 'Authenticating....',
+                onPressed: () {
+                  _CallFingerPrint();
+                },
               ),
-              Center(
-                child: IconButton(
-                  iconSize: 80,
-                  color: Colors.blue,
-                  icon: const Icon(Icons.fingerprint),
-                  tooltip: _isAuthenticating
-                      ? 'Login with fingerprint'
-                      : 'Authenticating....',
-                  onPressed: () {
-                    _CallFingerPrint();
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Try to press the icon fingerprint: $_platformVersion\n',
-                style: const TextStyle(
-                    fontFamily: 'poppins',
-                    color: Colors.black,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'OS version: $_platformVersion\n',
-                style: const TextStyle(
-                    fontFamily: 'poppins',
-                    color: Colors.black,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13),
-              )
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Try to press the icon fingerprint: $_platformVersion\n',
+              style: const TextStyle(
+                  fontFamily: 'poppins',
+                  color: Colors.black,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'OS version: $_platformVersion\n',
+              style: const TextStyle(
+                  fontFamily: 'poppins',
+                  color: Colors.black,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13),
+            )
+          ],
         ),
       ),
     );

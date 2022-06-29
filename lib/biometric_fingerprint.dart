@@ -1,6 +1,3 @@
-
-import 'package:flutter/services.dart';
-
 import 'biometric_fingerprint_platform_interface.dart';
 import 'biometric_result.dart';
 

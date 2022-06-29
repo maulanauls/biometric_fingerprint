@@ -19,3 +19,13 @@
 
 
 * TODO: revision on readme result success
+
+## 0.0.6
+
+
+* TODO: add demo image and update readme
+
+
+## 0.0.7
+
+* TODO: update readme & example demo in case result and remove unused import in source code
